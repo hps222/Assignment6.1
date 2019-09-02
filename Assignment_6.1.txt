@@ -1,0 +1,73 @@
+1. Use the given link and locate the bank marketing dataset. Data Set Link:https://archive.ics.uci.edu/ml/datasets/Bank+Marketing
+Perform the below operations:
+
+
+a. Create a visual for representing missing values in the dataset.
+
+bank_full <- read.csv("D:/R/bank-full.csv", header=TRUE, sep=";")
+str(bank_full)
+
+require(Amelia)
+missmap(bank_full,main="Missing Data - Bank ", 
+	col=c("red","grey"),legend=FALSE)
+summary(bank_full)
+
+## No red colour stripes are visible. hence no missing values.
+
+
+
+
+b. Show a distribution of clients based on a Job.
+
+bank_full <- read.csv("D:/R/bank-full.csv", header= TRUE, sep = ";")
+bank_full_1 <- table(bank_full$job)
+
+# Distribution in tabular form
+bank_full_1
+
+# visual representation of distribution
+barplot(bank_full_1,xlab="Job",ylab = "Frequency", main = "Clients based on Job", border="black", 
+                 col=heat.colors(15),las=3)
+
+
+
+
+c. Check whether is there any relation between Job and Marital Status?
+
+As both are a categorical variable this can be checked with chisq.test 
+
+bank_full <- read.csv("D:/R/bank-full.csv", header=TRUE, sep=";")
+
+library("MASS")
+with(bank_full, chisq.test( job, marital))
+
+# Result
+
+Pearson's Chi-squared test
+
+data:  job and marital
+X-squared = 3837.6, df = 22, p-value < 2.2e-16
+
+
+# <2.2e-16 means 0.00000000000000022. It is (very much) less than 0.05, there is relation between Job and Marital Status.
+
+
+
+
+d. Check whether is there any association between Job and Education?
+
+As both are a categorical variable this can be checked with chisq.test 
+
+bank_full <- read.csv("D:/R/bank-full.csv", header=TRUE, sep=";")
+
+library("MASS")
+with(bank_full, chisq.test( job,education))
+
+# Result
+
+Pearson's Chi-squared test
+
+data:  job and education
+X-squared = 28483, df = 33, p-value < 2.2e-16
+
+# <2.2e-16 means 0.00000000000000022. It is (very much) less than 0.05, there is relation between Job and Education.
